@@ -1,7 +1,10 @@
 # Testing Strategy Tasks
 
-These tasks establish the test infrastructure. Most slot into M0; a few are tied to M2/M3 when
-the systems they test are built.
+These tasks establish the test infrastructure. Most slot into M0; the rest are tied to the
+milestone that builds the system they test.
+
+Task numbers are stable — other specs reference them by number, so a task that moves between
+milestones keeps its number and changes section.
 
 ---
 
@@ -21,17 +24,6 @@ the systems they test are built.
   - `defineConstraints: ["UNITY_INCLUDE_TESTS"]`
   - _Requirements: REQ-TEST-5_
 
-- [ ] 3. Add `SimulationRunner` to Game.Core
-  - Create `Assets/Scripts/Core/Simulation/SimulationRunner.cs`
-  - Implement `RunToCompletion(sim, inputs, maxTicks)` and `RunCapturing(sim, ticks, inputs)`
-  - See design.md for full implementation
-  - _Requirements: REQ-TEST-2_
-
-- [ ] 4. Create `TestFixtures` helper class in Game.Core.Tests
-  - `Assets/Tests/EditMode/TestFixtures.cs`
-  - `DefaultSimulation()`, `TinyGridSimulation()`, `HeadOnCollisionSimulation()`
-  - _Requirements: REQ-TEST-2_
-
 - [ ] 5. Add `IPlayVolumeSource` interface and `MRUKPlayVolumeSource` implementation
   - Create `Assets/Scripts/Presentation/XR/IPlayVolumeSource.cs` (interface)
   - Create `Assets/Scripts/Presentation/XR/MRUKPlayVolumeSource.cs` (wraps MRUK)
@@ -49,6 +41,34 @@ the systems they test are built.
   - Test: `.\runtests.ps1 -mode editmode` discovers Unity and exits 0 when tests pass
   - Create `TestResults/` directory (add to `.gitignore`)
   - _Requirements: REQ-TEST-6_
+
+---
+
+## Simulation harness (M1)
+
+Moved out of the M0 infrastructure block: both depend on types M1 introduces
+(`Axis6`, `SetPlayerIntent`, the multi-arg `TickSimulation` constructor), so neither can be
+written at M0. Build them after M1 tasks 1–3, before the scenario tests that consume them.
+
+- [ ] 3. Add `SimulationRunner` to Game.Core
+  - Create `Assets/Scripts/Core/Simulation/SimulationRunner.cs`
+  - Implement `RunToCompletion(sim, inputs, maxTicks)` and `RunCapturing(sim, ticks, inputs)`
+  - See design.md for full implementation
+  - The design's API also reads `state.roundStatus` / `RoundStatus.Playing`, which do not exist
+    until M3. At M1, run the plain tick loop and add the early-exit when M3 lands
+  - `RunCapturing` returns a `List<GameState>`, but `GameState` is a class — capturing
+    `sim.State` each tick stores N references to the same mutable object, so every entry ends
+    up holding the final state. Capture a copy per tick (round-trip through `JsonUtility`, or
+    give `GameState` a `Clone()`), or the per-tick assertions in design.md silently pass/fail
+    on the wrong data
+  - _Requirements: REQ-TEST-2_
+
+- [ ] 4. Create `TestFixtures` helper class in Game.Core.Tests
+  - `Assets/Tests/EditMode/TestFixtures.cs`
+  - `DefaultSimulation()`, `TinyGridSimulation()`, `HeadOnCollisionSimulation()`
+  - The AI-snake arguments (`aiStart`, `aiHeading`) and `HeadOnCollisionSimulation` only become
+    meaningful at M3 — at M1 seed the player snake only and extend the fixtures then
+  - _Requirements: REQ-TEST-2_
 
 ---
 

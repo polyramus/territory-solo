@@ -13,9 +13,10 @@
   - Verify enforcement: temporarily add a UnityEngine.Rendering using statement to a Core file and confirm compile error
   - _Requirements: REQ-M0-1_
 
-- [ ] 3. Set up test infrastructure (see testing-strategy spec tasks 1–7)
+- [ ] 3. Set up test infrastructure (see testing-strategy spec tasks 1, 2, 5, 6, 7)
   - Create `Game.Core.Tests` EditMode assembly and `Game.Presentation.Tests` PlayMode assembly
-  - Add `SimulationRunner` to Game.Core; create `TestFixtures` helper class
+  - `SimulationRunner` and `TestFixtures` (testing-strategy tasks 3–4) moved to M1 — they
+    depend on `Axis6` and the M1 `TickSimulation` constructor and cannot be built here
   - Add `IPlayVolumeSource` interface and `MRUKPlayVolumeSource` implementation
   - Create `Assets/Tests/Rooms/TestRoom.json` room fixture
   - Create `runtests.ps1` at project root
