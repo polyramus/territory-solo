@@ -7,8 +7,10 @@ namespace Game.Core.Tests
         [Test]
         public void CoreAssemblyLoads()
         {
-            _ = new GameState();
-            Assert.Pass();
+            var sim = new TickSimulation();
+
+            Assert.IsNotNull(sim);
+            Assert.IsNotNull(sim.State);
         }
     }
 }

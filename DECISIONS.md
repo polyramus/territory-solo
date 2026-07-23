@@ -120,12 +120,34 @@ heading changes, possibly queued.
 prerequisite for the deterministic simulation (D6) that future multiplayer needs.
 **Open tuning.** Tick rate and whether turns queue — tuned in M4; large effect on feel.
 
+### D11 — Engine, XR backend, and target device (pinned at M0)
+**Status:** Confirmed · **Source:** the installed project — `manifest.json`,
+`packages-lock.json`, and `ProjectVersion.txt` already settle this; M0 records it.
+**Decision.** The stack is pinned as follows, and is the plan of record for all of v1:
+- **Unity 6000.5.0f1** (`ProjectSettings/ProjectVersion.txt`), **URP 17.5.0**.
+- **XR backend: OpenXR** — `com.unity.xr.openxr` 1.17.1 + `com.unity.xr.meta-openxr` 2.5.0
+  (which pulls AR Foundation 6.5.0), managed by `com.unity.xr.management` 4.5.4.
+- **Scene understanding: MRUK** (`com.meta.xr.mrutilitykit`) 203.0.0, with
+  `com.meta.xr.sdk.core` 203.0.0 present as its dependency.
+- **No legacy Oculus XR Plugin** (`com.unity.xr.oculus`) — deprecated in Meta XR SDK v74 /
+  Unity 6 and absent from this project.
+- **Input:** Unity Input System 1.6.3 (pulled in transitively; see `packages-lock.json`).
+- **Target device: Quest 3-class**, for color passthrough. Quest 2 is not a target — its
+  passthrough is monochrome and would undercut the MR premise.
+**Rationale.** OpenXR + Meta feature packages is the path Meta and Unity are both actively
+maintaining on Unity 6; the deprecated Oculus plugin path would be a dead end. Versions are
+pinned via `Packages/packages-lock.json` so resolution is reproducible across machines.
+**Consequences.** Game code uses `XROrigin`, `ARCameraManager`/`ARCameraBackground`, MRUK,
+and the Input System — **never** `OVR*` classes (see `.kiro/steering/xr-stack.md` and
+`conventions.md`). Passthrough is AR Foundation-based, not `OVRPassthroughLayer`; the play
+volume is anchored off `MRUKRoom`, not `OVRSpatialAnchor`.
+**Note.** Meta XR SDK 203.0.0 has three CS0619 hard errors on Unity 6000.5+; patched via
+`Extras/Apply-Patches.ps1`. Re-apply after any package reinstall.
+
 ---
 
 ## Open / to-confirm
 
-- **Unity version + XR stack** — pin in M0 (Meta XR SDK vs. OpenXR + Meta features).
-- **Target device** — Quest 3-class assumed for color passthrough; confirm in M0.
 - **M1 outcome** — world-locked vs. body-relative; record back into D4.
 - **Double-death tiebreak** — define in M3 (e.g. draw on same-tick mutual collision).
 - **Project name** — "Voxel Territory" is a placeholder.

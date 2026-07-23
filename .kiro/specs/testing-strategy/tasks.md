@@ -14,7 +14,7 @@ the systems they test are built.
   - Delete or rename the existing `Assets/Tests/Tests.asmdef` (it's a MRUK sample placeholder — keep `TestsExamples.cs` only if needed, it references MRUK internals)
   - _Requirements: REQ-TEST-1_
 
-- [ ] 2. Create `Game.Presentation.Tests` PlayMode assembly
+- [x] 2. Create `Game.Presentation.Tests` PlayMode assembly
   - Create `Assets/Tests/PlayMode/Game.Presentation.Tests.asmdef`
   - References: `Game.Core`, `Game.Presentation`, `Game.App`, `Unity.TestFramework.NUnit`, MRUK tests assembly
   - `includePlatforms: []` (runs both Editor and Standalone, but tested in Play Mode)
@@ -44,7 +44,7 @@ the systems they test are built.
   - Add `Assets/Tests/Rooms/` to a Resources folder or reference by path in tests
   - _Requirements: REQ-TEST-7_
 
-- [ ] 7. Write CLI test runner script
+- [x] 7. Write CLI test runner script
   - Create `runtests.ps1` at project root (see design.md for implementation)
   - Test: `.\runtests.ps1 -mode editmode` discovers Unity and exits 0 when tests pass
   - Create `TestResults/` directory (add to `.gitignore`)

@@ -1,12 +1,12 @@
 # M0 Tasks: Scaffolding and the Seam
 
-- [ ] 1. Record confirmed stack in DECISIONS.md
+- [x] 1. Record confirmed stack in DECISIONS.md
   - Stack is already confirmed by manifest.json (Unity 6, OpenXR, meta-openxr 2.5.0, MRUK 203.0.0)
   - Add DECISIONS.md entry: Unity 6000.x, OpenXR backend, no legacy Oculus XR Plugin
   - Confirm target device: Quest 3-class (color passthrough)
   - _Requirements: REQ-M0-6_
 
-- [ ] 2. Create three assembly definitions with enforced dependency direction
+- [x] 2. Create three assembly definitions with enforced dependency direction
   - Create `Assets/Scripts/Core/Game.Core.asmdef` with no rendering/XR assembly references
   - Create `Assets/Scripts/Presentation/Game.Presentation.asmdef` referencing Game.Core
   - Create `Assets/Scripts/App/Game.App.asmdef` referencing Game.Core and Game.Presentation
@@ -23,12 +23,12 @@
   - Confirm: `.\runtests.ps1 -mode editmode` exits 0
   - _Requirements: REQ-M0-4_
 
-- [ ] 4. Implement GameState and serialization round-trip
+- [x] 4. Implement GameState and serialization round-trip
   - Create `GameState.cs` in Game.Core with `[Serializable]` and `tick` field
   - Write edit-mode test: serialize `GameState` to JSON → deserialize → assert `tick` matches
   - _Requirements: REQ-M0-5_
 
-- [ ] 5. Implement fixed-step tick loop skeleton
+- [x] 5. Implement fixed-step tick loop skeleton
   - Create `TickSimulation.cs` in Game.Core with `Tick()` incrementing `State.tick`
   - Write edit-mode test: call `Tick()` N times, assert `State.tick == N`
   - _Requirements: REQ-M0-5_
