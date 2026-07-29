@@ -24,16 +24,15 @@ milestones keeps its number and changes section.
   - `defineConstraints: ["UNITY_INCLUDE_TESTS"]`
   - _Requirements: REQ-TEST-5_
 
-- [ ] 5. Add `IPlayVolumeSource` interface and `MRUKPlayVolumeSource` implementation
-  - Create `Assets/Scripts/Presentation/XR/IPlayVolumeSource.cs` (interface)
-  - Create `Assets/Scripts/Presentation/XR/MRUKPlayVolumeSource.cs` (wraps MRUK)
-  - `PlayVolumeAnchor` depends on `IPlayVolumeSource`, not directly on MRUK
+- [x] 5. Add `IPlayVolumeSource` interface and `MRUKPlayVolumeSource` implementation
+  - [x] Create `Assets/Scripts/Presentation/XR/IPlayVolumeSource.cs` (interface)
+  - [x] Create `Assets/Scripts/Presentation/XR/MRUKPlayVolumeSource.cs` (wraps MRUK)
+  - [x] Refactored `PlayVolumeAnchor` to depend on `IPlayVolumeSource`, not directly on MRUK
   - _Requirements: REQ-TEST-5_
 
-- [ ] 6. Create TestRoom.json fixture
-  - Copy or adapt one of MRUK's existing JSON rooms (e.g. `MeshOffice1.json`) to `Assets/Tests/Rooms/TestRoom.json`
-  - Ensure it describes a room ≥ 3m × 3m × 3m (comfortably fits a 2m play volume)
-  - Add `Assets/Tests/Rooms/` to a Resources folder or reference by path in tests
+- [x] 6. Create TestRoom.json fixture
+  - [x] Copied MRUK sample room (`MultiFloor.json`) to `Assets/Tests/Rooms/TestRoom.json`
+  - [ ] Verify room dimensions ≥ 3m × 3m × 3m (comfortably fits a 2m play volume)
   - _Requirements: REQ-TEST-7_
 
 - [x] 7. Write CLI test runner script

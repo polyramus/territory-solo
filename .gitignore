@@ -18,6 +18,9 @@
 # Recordings can get excessive in size
 /[Rr]ecordings/
 
+# Test results from runtests.ps1
+/TestResults/
+
 # Uncomment this line if you wish to ignore the asset store tools plugin
 # /[Aa]ssets/AssetStoreTools*
 
