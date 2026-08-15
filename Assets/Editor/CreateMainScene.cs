@@ -4,7 +4,6 @@ using System.IO;
 using UnityEngine;
 using UnityEditor;
 using UnityEngine.XR.ARFoundation;
-using UnityEngine.XR.CoreUtils;
 
 namespace Game.Editor
 {

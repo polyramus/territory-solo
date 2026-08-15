@@ -4,7 +4,6 @@
     "references": [
         "Game.Core",
         "Unity.XR.ARFoundation",
-        "Unity.XR.CoreUtils",
         "Unity.InputSystem",
         "meta.xr.mrutilitykit"
     ],
