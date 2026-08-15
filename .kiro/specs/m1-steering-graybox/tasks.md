@@ -1,36 +1,37 @@
 # M1 Tasks: Volumetric Steering Gray-box
 
-- [ ] 1. Add Axis6 enum to Game.Core
-  - Create `Axis6.cs` with PosX, NegX, PosY, NegY, PosZ, NegZ
-  - Add static helper `Axis6Extensions.ToVector(Axis6) → Vector3Int`
-  - Add `IsOpposite(Axis6 a, Axis6 b) → bool` helper (same axis, different sign)
+- [x] 1. Add Axis6 enum to Game.Core
+  - [x] Create `Axis6.cs` with PosX, NegX, PosY, NegY, PosZ, NegZ (paired layout for IsOpposite)
+  - [x] Static helper `Axis6Extensions.ToVector(Axis6) → Vector3Int`
+  - [x] `IsOpposite(Axis6 a, Axis6 b) → bool` helper (same axis, different sign via `(int)a / 2 == (int)b / 2`)
   - _Requirements: REQ-M1-1_
 
-- [ ] 2. Implement SnakeHead in Game.Core
-  - `SnakeHead(Vector3Int startPos, Axis6 startHeading)` constructor
-  - `SetIntent(Axis6)` — queues a direction change; ignores 180° reversals silently
-  - `Advance()` — applies pending intent (if any), then moves position one cell
+- [x] 2. Implement SnakeHead in Game.Core
+  - [x] `SnakeHead(Vector3Int startPos, Axis6 startHeading)` constructor
+  - [x] `SetIntent(Axis6)` — queues a direction change; ignores 180° reversals silently
+  - [x] `Advance()` — applies pending intent (if any), then moves position one cell along current heading
   - _Requirements: REQ-M1-1_
 
-- [ ] 3. Add SnakeHeadState snapshot struct and expand TickSimulation
-  - Add `[Serializable] SnakeHeadState` struct (position, heading)
-  - Expand `GameState` to include `playerHead SnakeHeadState`
-  - Expand `TickSimulation`: constructor accepts start position/heading; `Tick()` drives head; `SetPlayerIntent()` forwards to head
+- [x] 3. Add SnakeHeadState snapshot struct and expand TickSimulation
+  - [x] `[Serializable] SnakeHeadState` struct (position, heading)
+  - [x] Expand `GameState` to include `playerHead SnakeHeadState`; added `Clone()` for snapshot capture
+  - [x] Expand `TickSimulation`: constructor accepts start position/heading; `Tick()` drives head; `SetPlayerIntent()` forwards to head
   - _Requirements: REQ-M1-1_
 
-- [ ] 4. Add `SimulationRunner` and `TestFixtures` (testing-strategy tasks 3–4)
-  - Moved here from M0: both need `Axis6`, `SetPlayerIntent`, and the `TickSimulation`
-    constructor from tasks 1–3 above
-  - `SimulationRunner` in Game.Core; `TestFixtures` in Game.Core.Tests
-  - See caveats in `.kiro/specs/testing-strategy/tasks.md` (M3-only members, snapshot aliasing)
+- [x] 4. Add `SimulationRunner` and `TestFixtures` (testing-strategy tasks 3–4)
+  - [x] `SimulationRunner.RunToCompletion()` — runs ticks with scheduled inputs, no round-status check (M3)
+  - [x] `SimulationRunner.RunCapturing()` — captures deep-cloned snapshots per tick (avoids aliasing trap)
+  - [x] `TestFixtures.DefaultSimulation()`, `OriginSimulation()` — factory methods for test setup
   - _Requirements: REQ-TEST-2_
 
-- [ ] 5. Write edit-mode tests for head movement
-  - Test: `Advance()` N times from origin along PosX → position = (N, 0, 0)
-  - Test: set intent PosZ on tick 2; position changes axis at tick 2
-  - Test: set 180° intent (NegX when heading PosX) → intent ignored, heading unchanged
-  - Test: state snapshot includes correct head position and heading after each tick
-  - Test: serialize → deserialize `GameState` with non-default head state → fields match
+- [x] 5. Write edit-mode tests for head movement (`SnakeHeadTests.cs`)
+  - [x] Advance N times from origin along all six directions → position correct
+  - [x] Set intent PosZ on tick 2; position changes axis at tick 2 (turn-at-boundary)
+  - [x] Set 180° intent (NegX when heading PosX) → intent ignored, heading unchanged (all 6 axes)
+  - [x] State snapshot includes correct head position and heading after each tick (via RunCapturing)
+  - [x] Snapshots are independent clones (aliasing trap avoided)
+  - [x] Serialize → deserialize GameState with non-default head state → fields match
+  - [x] Clone() produces deep copy unaffected by original mutation
   - _Requirements: REQ-M1-1_
 
 - [ ] 6. Implement GameLoop in Game.App

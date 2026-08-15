@@ -49,24 +49,16 @@ Moved out of the M0 infrastructure block: both depend on types M1 introduces
 (`Axis6`, `SetPlayerIntent`, the multi-arg `TickSimulation` constructor), so neither can be
 written at M0. Build them after M1 tasks 1–3, before the scenario tests that consume them.
 
-- [ ] 3. Add `SimulationRunner` to Game.Core
-  - Create `Assets/Scripts/Core/Simulation/SimulationRunner.cs`
-  - Implement `RunToCompletion(sim, inputs, maxTicks)` and `RunCapturing(sim, ticks, inputs)`
-  - See design.md for full implementation
-  - The design's API also reads `state.roundStatus` / `RoundStatus.Playing`, which do not exist
-    until M3. At M1, run the plain tick loop and add the early-exit when M3 lands
-  - `RunCapturing` returns a `List<GameState>`, but `GameState` is a class — capturing
-    `sim.State` each tick stores N references to the same mutable object, so every entry ends
-    up holding the final state. Capture a copy per tick (round-trip through `JsonUtility`, or
-    give `GameState` a `Clone()`), or the per-tick assertions in design.md silently pass/fail
-    on the wrong data
+- [x] 3. Add `SimulationRunner` to Game.Core
+  - [x] Create `Assets/Scripts/Core/Simulation/SimulationRunner.cs`
+  - [x] Implement `RunToCompletion(sim, inputs, maxTicks)` — plain tick loop (no round-status check until M3)
+  - [x] Implement `RunCapturing(sim, ticks, inputs)` — captures deep-cloned snapshots per tick via GameState.Clone()
   - _Requirements: REQ-TEST-2_
 
-- [ ] 4. Create `TestFixtures` helper class in Game.Core.Tests
-  - `Assets/Tests/EditMode/TestFixtures.cs`
-  - `DefaultSimulation()`, `TinyGridSimulation()`, `HeadOnCollisionSimulation()`
-  - The AI-snake arguments (`aiStart`, `aiHeading`) and `HeadOnCollisionSimulation` only become
-    meaningful at M3 — at M1 seed the player snake only and extend the fixtures then
+- [x] 4. Create `TestFixtures` helper class in Game.Core.Tests
+  - [x] `Assets/Tests/EditMode/TestFixtures.cs`
+  - [x] `DefaultSimulation()` — player at (1,1,1) heading +X; `OriginSimulation()` — player at origin heading +X
+  - [ ] Extend with AI-snake arguments (`aiStart`, `aiHeading`) and `HeadOnCollisionSimulation` at M3
   - _Requirements: REQ-TEST-2_
 
 ---
