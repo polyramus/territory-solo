@@ -3,6 +3,7 @@
 using System;
 using Meta.XR.MRUtilityKit;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Game.Presentation
 {
@@ -20,10 +21,13 @@ namespace Game.Presentation
         /// <inheritdoc />
         public bool IsReady => FloorCenter.HasValue;
 
+        private readonly UnityAction<MRUKRoom> _onSceneLoaded;
+
         public MRUKPlayVolumeSource()
         {
+            _onSceneLoaded = OnSceneLoaded;
             if (MRUK.Instance != null)
-                MRUK.Instance.SceneLoadedEvent.AddListener(OnSceneLoaded);
+                MRUK.Instance.SceneLoadedEvent.AddListener(_onSceneLoaded);
         }
 
         /// <summary>Trigger MRUK to load scene understanding from the device.</summary>
@@ -42,7 +46,7 @@ namespace Game.Presentation
         public void Dispose()
         {
             if (_disposed || MRUK.Instance == null) return;
-            MRUK.Instance.SceneLoadedEvent.RemoveListener(OnSceneLoaded);
+            MRUK.Instance.SceneLoadedEvent.RemoveListener(_onSceneLoaded);
             _disposed = true;
         }
     }

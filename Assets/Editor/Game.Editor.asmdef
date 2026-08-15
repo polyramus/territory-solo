@@ -3,7 +3,9 @@
     "rootNamespace": "Game.Editor",
     "references": [
         "Unity.XR.CoreUtils",
-        "Unity.XR.ARFoundation"
+        "Unity.XR.ARFoundation",
+        "com.meta.xr.mrutilitykit",
+        "TextMeshPro"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
