@@ -180,25 +180,16 @@ namespace Game.Editor
             return mesh;
         }
 
-        private static CameraBackgroundMaterial FindMetaPassthroughMaterial()
+        private static Material FindMetaPassthroughMaterial()
         {
             // Search for the Meta OpenXR camera background material in the package folder.
-            // The material type is CameraBackgroundMaterial (AR Foundation).
-            var guids = AssetDatabase.FindAssets("t:CameraBackgroundMaterial");
-            foreach (var guid in guids)
-            {
-                var path = AssetDatabase.GUIDToAssetPath(guid);
-                if (path.Contains("meta-openxr"))
-                    return AssetDatabase.LoadAssetAtPath<CameraBackgroundMaterial>(path);
-            }
-
-            // Fallback: search for any material with "Passthrough" or "Camera" in the name under meta-openxr
-            guids = AssetDatabase.FindAssets("t:Material _metaopenxr");
+            // AR Foundation uses a regular Unity Material with a passthrough shader.
+            var guids = AssetDatabase.FindAssets("t:Material _metaopenxr");
             foreach (var guid in guids)
             {
                 var path = AssetDatabase.GUIDToAssetPath(guid);
                 if (path.Contains("meta-openxr") && (path.Contains("Passthrough") || path.Contains("Camera")))
-                    return AssetDatabase.LoadAssetAtPath<CameraBackgroundMaterial>(path);
+                    return AssetDatabase.LoadAssetAtPath<Material>(path);
             }
 
             Debug.LogWarning(
