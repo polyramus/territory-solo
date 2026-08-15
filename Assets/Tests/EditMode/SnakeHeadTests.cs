@@ -19,20 +19,52 @@ namespace Game.Core.Tests
             Assert.AreEqual(new Vector3Int(10, 0, 0), sim.State.playerHead.position);
         }
 
-        [TestCase(Axis6.PosX, new Vector3Int(5, 0, 0))]
-        [TestCase(Axis6.NegX, new Vector3Int(-5, 0, 0))]
-        [TestCase(Axis6.PosY, new Vector3Int(0, 5, 0))]
-        [TestCase(Axis6.NegY, new Vector3Int(0, -5, 0))]
-        [TestCase(Axis6.PosZ, new Vector3Int(0, 0, 5))]
-        [TestCase(Axis6.NegZ, new Vector3Int(0, 0, -5))]
-        public void AdvanceNTimes_AllSixDirections_PositionCorrect(Axis6 heading, Vector3Int expected)
+        [Test]
+        public void AdvanceNTimes_PosX_PositionCorrect()
         {
-            var sim = new TickSimulation(Vector3Int.zero, heading);
+            var sim = new TickSimulation(Vector3Int.zero, Axis6.PosX);
+            for (int i = 0; i < 5; i++) sim.Tick();
+            Assert.AreEqual(new Vector3Int(5, 0, 0), sim.State.playerHead.position);
+        }
 
-            for (int i = 0; i < 5; i++)
-                sim.Tick();
+        [Test]
+        public void AdvanceNTimes_NegX_PositionCorrect()
+        {
+            var sim = new TickSimulation(Vector3Int.zero, Axis6.NegX);
+            for (int i = 0; i < 5; i++) sim.Tick();
+            Assert.AreEqual(new Vector3Int(-5, 0, 0), sim.State.playerHead.position);
+        }
 
-            Assert.AreEqual(expected, sim.State.playerHead.position);
+        [Test]
+        public void AdvanceNTimes_PosY_PositionCorrect()
+        {
+            var sim = new TickSimulation(Vector3Int.zero, Axis6.PosY);
+            for (int i = 0; i < 5; i++) sim.Tick();
+            Assert.AreEqual(new Vector3Int(0, 5, 0), sim.State.playerHead.position);
+        }
+
+        [Test]
+        public void AdvanceNTimes_NegY_PositionCorrect()
+        {
+            var sim = new TickSimulation(Vector3Int.zero, Axis6.NegY);
+            for (int i = 0; i < 5; i++) sim.Tick();
+            Assert.AreEqual(new Vector3Int(0, -5, 0), sim.State.playerHead.position);
+        }
+
+        [Test]
+        public void AdvanceNTimes_PosZ_PositionCorrect()
+        {
+            var sim = new TickSimulation(Vector3Int.zero, Axis6.PosZ);
+            for (int i = 0; i < 5; i++) sim.Tick();
+            Assert.AreEqual(new Vector3Int(0, 0, 5), sim.State.playerHead.position);
+        }
+
+        [Test]
+        public void AdvanceNTimes_NegZ_PositionCorrect()
+        {
+            var sim = new TickSimulation(Vector3Int.zero, Axis6.NegZ);
+            for (int i = 0; i < 5; i++) sim.Tick();
+            Assert.AreEqual(new Vector3Int(0, 0, -5), sim.State.playerHead.position);
         }
 
         // ── Intent queueing and turn-at-boundary ──────────────────────
