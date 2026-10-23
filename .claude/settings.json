@@ -1,4 +1,5 @@
 {
+  "autoMemoryDirectory": "~/agent-memory/territory-solo",
   "permissions": {
     "allow": [
       "WebFetch(domain:developers.meta.com)"

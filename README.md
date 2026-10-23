@@ -9,7 +9,7 @@ trap your opponent before they trap you.
 It is **not** Snake, Tron, or any specific arcade title. The mechanic is the
 light-cycle *lineage* — claiming space with a permanent trail — which is genre, not
 trademark. The creative bet is that this reads as a native MR game, not a "well-known
-game but in 3D" port. See `docs/DECISIONS.md` (D1) for why this concept was chosen
+game but in 3D" port. See `DECISIONS.md` (D1) for why this concept was chosen
 over the alternatives we considered (Snake, Tetris, Pac-Man, Centipede, voxel-carving).
 
 ---
@@ -19,7 +19,7 @@ over the alternatives we considered (Snake, Tetris, Pac-Man, Centipede, voxel-ca
 Pre-implementation. This repository currently contains the design and engineering
 handoff only — no code yet. The first deliverable is a **fully working solo-vs-AI
 game** (the "v1 ship"); multiplayer, remote play, and a phone spectator are deliberately
-deferred (see `docs/ROADMAP.md`).
+deferred (see `ROADMAP.md`).
 
 ## Who this is for
 
@@ -35,10 +35,10 @@ specific risks that are easy to get wrong.
 |---|---|---|
 | `README.md` | This file — orientation and quick start | First |
 | `AGENTS.md` | Operating manual for a coding agent: prime directives, conventions, gates, definition of done | Before writing any code |
-| `docs/SPEC.md` | The v1 specification: vision, scope, architecture, systems, acceptance criteria, glossary | Before designing systems |
-| `docs/BUILD_PLAN.md` | Milestones M0–M4 with tasks and exit criteria. M1 is a **gate**. | To know what to build next |
-| `docs/DECISIONS.md` | Decision log (ADR-lite) with rationale and alternatives, so settled choices are not re-litigated | When tempted to change a decided thing |
-| `docs/ROADMAP.md` | Everything deferred past v1 and the v1 seams it depends on | When deciding what *not* to build now |
+| `SPEC.md` | The v1 specification: vision, scope, architecture, systems, acceptance criteria, glossary | Before designing systems |
+| `BUILD_PLAN.md` | Milestones M0–M4 with tasks and exit criteria. M1 is a **gate**. | To know what to build next |
+| `DECISIONS.md` | Decision log (ADR-lite) with rationale and alternatives, so settled choices are not re-litigated | When tempted to change a decided thing |
+| `ROADMAP.md` | Everything deferred past v1 and the v1 seams it depends on | When deciding what *not* to build now |
 
 ## Prime directives (the short version — full detail in `AGENTS.md`)
 

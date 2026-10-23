@@ -1,19 +1,19 @@
 # AGENTS.md
 
 Operating instructions for a coding agent picking up this project. Read this fully
-before writing code, then read `docs/SPEC.md` and `docs/DECISIONS.md`.
+before writing code, then read `SPEC.md` and `DECISIONS.md`.
 
 ## How to work
 
-- **Read order:** `README.md` → this file → `docs/SPEC.md` → `docs/DECISIONS.md` →
-  `docs/BUILD_PLAN.md`. Build strictly in milestone order (M0 → M4). M1 is a gate;
+- **Read order:** `README.md` → this file → `SPEC.md` → `DECISIONS.md` →
+  `BUILD_PLAN.md`. Build strictly in milestone order (M0 → M4). M1 is a gate;
   do not start M2 until the M1 exit criteria are met.
-- **Decisions are settled unless flagged.** The choices in `docs/DECISIONS.md` were
+- **Decisions are settled unless flagged.** The choices in `DECISIONS.md` were
   made deliberately, with tradeoffs understood. Do not silently reverse them. If
   implementation reveals a decision is wrong, stop and surface it explicitly (what
   broke, which decision, what you propose instead) rather than quietly substituting
   your own.
-- **Scope discipline.** Anything in `docs/ROADMAP.md` is out of scope for v1. Building
+- **Scope discipline.** Anything in `ROADMAP.md` is out of scope for v1. Building
   ahead into multiplayer/phone/Centipede is a regression, not initiative. The only
   thing you owe the future is the two cheap properties in directive 4 below.
 
