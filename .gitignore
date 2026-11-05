@@ -94,3 +94,4 @@ crashlytics-build.properties
 # Claude Code local (machine-specific) settings
 .claude/settings.local.json
 *.slnx
+.DS_Store
